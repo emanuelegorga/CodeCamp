@@ -1,0 +1,23 @@
+{
+  "name": "codecamp",
+  "version": "1.0.0",
+  "description": "CodeCamp",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/emanuelegorga/CodeCamp.git"
+  },
+  "author": "Emanuele Gorga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emanuelegorga/CodeCamp/issues"
+  },
+  "homepage": "https://github.com/emanuelegorga/CodeCamp#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}
