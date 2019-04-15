@@ -9,7 +9,12 @@ app.set("view engine", "ejs");
 let campgrounds = [
     { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" },
     { name: "Node", image: "https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg" },
-    { name: "React", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4AuEQCCvVDUk_LhSstNzOBzrxvUcExKex6nZUgBMdeLyTNzr3" }
+    { name: "React", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4AuEQCCvVDUk_LhSstNzOBzrxvUcExKex6nZUgBMdeLyTNzr3" },
+    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" },
+    { name: "Node", image: "https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg" },
+    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" },
+    { name: "Node", image: "https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg" },
+    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" }
 ];
 
 app.get("/", (req, res) => {
