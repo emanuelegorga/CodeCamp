@@ -1,28 +1,33 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
+const   express    = require("express"),
+        app        = express(),
+        bodyParser = require("body-parser"),
+        mongoose   = require("mongoose");
 
+mongoose.connect("mongodb://localhost:27017/codecamp", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.set("view engine", "ejs");
 
-let campgrounds = [
-    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" },
-    { name: "Node", image: "https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg" },
-    { name: "React", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4AuEQCCvVDUk_LhSstNzOBzrxvUcExKex6nZUgBMdeLyTNzr3" },
-    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" },
-    { name: "Node", image: "https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg" },
-    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" },
-    { name: "Node", image: "https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg" },
-    { name: "JavaScript", image: "https://image.freepik.com/free-icon/js-rounded-square_318-10133.jpg" }
-];
+// SCHEMA SETUP
+let campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String
+});
+
+let Campground = mongoose.model("Campground", campgroundSchema);
 
 app.get("/", (req, res) => {
   res.render("landing");
 });
 
 app.get("/campgrounds", (req, res) => {
-  res.render("campgrounds", { campgrounds: campgrounds });
+    // Get all campgrounds from DB
+    Campground.find({}, function(err, allCampgrounds) {
+        if(err) {
+            console.log(err)
+        } else {
+            res.render("campgrounds", { campgrounds: allCampgrounds });
+        }
+    });
 });
 
 app.post("/campgrounds", (req, res) => {
@@ -30,9 +35,14 @@ app.post("/campgrounds", (req, res) => {
     let name = req.body.name;
     let image = req.body.image;
     let newCampground = {name: name, image: image}
-    campgrounds.push(newCampground);
-    // redirect back to campgrounds page
-    res.redirect("/campgrounds")
+    // Create a new campground and save to DB
+    Campground.create(newCampground, function(err, newlyCreated) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
 });
 
 app.get("/campgrounds/new", (req, res) => {
