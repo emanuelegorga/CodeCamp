@@ -10,7 +10,8 @@ app.set("view engine", "ejs");
 // SCHEMA SETUP
 let campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 let Campground = mongoose.model("Campground", campgroundSchema);
@@ -25,7 +26,7 @@ app.get("/campgrounds", (req, res) => {
         if(err) {
             console.log(err)
         } else {
-            res.render("campgrounds", { campgrounds: allCampgrounds });
+            res.render("index", { campgrounds: allCampgrounds });
         }
     });
 });
@@ -34,7 +35,8 @@ app.post("/campgrounds", (req, res) => {
     // get data from form and add to campgrounds array
     let name = req.body.name;
     let image = req.body.image;
-    let newCampground = {name: name, image: image}
+    let description = req.body.description;
+    let newCampground = {name: name, image: image, description: description}
     // Create a new campground and save to DB
     Campground.create(newCampground, function(err, newlyCreated) {
         if(err) {
@@ -48,6 +50,18 @@ app.post("/campgrounds", (req, res) => {
 app.get("/campgrounds/new", (req, res) => {
     res.render("new.ejs");
 });
+
+app.get("/campgrounds/:id", (req, res) => {
+    // Find campgroud with provided ID
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        if(err) {
+            console.log(err);
+        } else {
+            // render show template with that campground 
+            res.render("show", {campground: foundCampground});
+        }
+    });
+})
 
 app.listen(3000, function() {
   console.log("The CodeCamp Server Has Started!");
