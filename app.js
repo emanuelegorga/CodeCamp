@@ -20,7 +20,7 @@ app.get("/campgrounds", (req, res) => {
         if(err) {
             console.log(err)
         } else {
-            res.render("index", { campgrounds: allCampgrounds });
+            res.render("campgrounds/index", { campgrounds: allCampgrounds });
         }
     });
 });
@@ -42,7 +42,7 @@ app.post("/campgrounds", (req, res) => {
 });
 
 app.get("/campgrounds/new", (req, res) => {
-    res.render("new.ejs");
+    res.render("campgrounds/new.ejs");
 });
 
 app.get("/campgrounds/:id", (req, res) => {
@@ -53,9 +53,23 @@ app.get("/campgrounds/:id", (req, res) => {
         } else {
             console.log(foundCampground)
             // render show template with that campground 
-            res.render("show", {campground: foundCampground});
+            res.render("campgrounds/show", {campground: foundCampground});
         }
     });
+})
+
+// =================
+// COMMENTS ROUTES
+// =================
+
+app.get("/campgrounds/:id/comments/new", (req, res) => {
+    Campground.findById(req.params.id, (err, campground) => {
+        if(err) {
+            console.log(err)
+        } else {
+            res.render("comments/new", {campground: campground});
+        }
+    })
 })
 
 app.listen(3000, function() {
