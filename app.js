@@ -2,11 +2,13 @@ const   express    = require("express"),
         app        = express(),
         bodyParser = require("body-parser"),
         mongoose   = require("mongoose"),
-        Campground = require("./models/campground");
+        Campground = require("./models/campground"),
+        seedDB     = require("./seeds");
 
 mongoose.connect("mongodb://localhost:27017/codecamp", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+seedDB();
 
 app.get("/", (req, res) => {
   res.render("landing");
@@ -45,10 +47,11 @@ app.get("/campgrounds/new", (req, res) => {
 
 app.get("/campgrounds/:id", (req, res) => {
     // Find campgroud with provided ID
-    Campground.findById(req.params.id, (err, foundCampground) => {
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground) {
         if(err) {
             console.log(err);
         } else {
+            console.log(foundCampground)
             // render show template with that campground 
             res.render("show", {campground: foundCampground});
         }
