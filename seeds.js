@@ -23,33 +23,33 @@ const data = [
 function seedDB(){
     // Remove all Campgrounds
     Campground.remove({}, (err) => {
-        if(err) {
-            console.log(err);
-        }
-        console.log("removed campgrounds!");
-        // add a few campground
-        data.forEach(seed => {
-            Campground.create(seed, (err, campground) => {
-                if(err) {
-                    console.log(err)
-                } else {
-                    console.log("added campground:)")
-                    // create a comment
-                    Comment.create({
-                        text: "This place is great!",
-                        author: "Young coder"
-                    }, (err, comment) => {
-                        if(err) {
-                            console.log(err)
-                        } else {
-                            campground.comments.push(comment)
-                            campground.save()
-                            console.log("added new comment to campground")
-                        }
-                    })
-                }
-            })
-        })
+        // if(err) {
+        //     console.log(err);
+        // }
+        // console.log("removed campgrounds!");
+        // // add a few campground
+        // data.forEach(seed => {
+        //     Campground.create(seed, (err, campground) => {
+        //         if(err) {
+        //             console.log(err)
+        //         } else {
+        //             console.log("added campground:)")
+        //             // create a comment
+        //             Comment.create({
+        //                 text: "This place is great!",
+        //                 author: "Young coder"
+        //             }, (err, comment) => {
+        //                 if(err) {
+        //                     console.log(err)
+        //                 } else {
+        //                     campground.comments.push(comment)
+        //                     campground.save()
+        //                     console.log("added new comment to campground")
+        //                 }
+        //             })
+        //         }
+        //     })
+        // })
     });
 }
 
