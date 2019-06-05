@@ -64,7 +64,7 @@ router.get("/:id/edit", checkCampgroundOwnership, (req, res) => {
 });
 
 // update route
-router.put("/:id", (req, res) => {
+router.put("/:id", checkCampgroundOwnership, (req, res) => {
     // find the correct campground
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
         if(err) {
@@ -76,7 +76,7 @@ router.put("/:id", (req, res) => {
 })
 
 // destroy route
-router.delete("/:id", (req, res) => {
+router.delete("/:id", checkCampgroundOwnership, (req, res) => {
     // find the correct campground
     Campground.findByIdAndRemove(req.params.id, (err, deletedCampground) => {
         if(err) {
