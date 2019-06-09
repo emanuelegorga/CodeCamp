@@ -68,6 +68,6 @@ app.use(indexRoutes)
 app.use("/campgrounds", campgroundRoutes)
 app.use("/campgrounds/:id/comments", commentRoutes)
 
-app.listen(PORT, () => {
+app.listen(PORT, process.env.IP, () => {
   console.log(`The CodeCamp Server Has Started on port ${PORT}` );
 });
