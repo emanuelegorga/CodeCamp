@@ -9,8 +9,10 @@ const   express        = require("express"),
         Campground     = require("./models/campground"),
         Comment        = require("./models/comment"),
         User           = require("./models/user"),
-        seedDB         = require("./seeds");
-        PORT           = process.env.PORT || 3000;
+        seedDB         = require("./seeds"),
+        PORT           = process.env.PORT || 3000,
+        session        = require("express-session"),
+        MongoStore     = require("connect-mongo")(session);
 
 //requiring routes
 const commentRoutes     = require("./routes/comments"),
@@ -34,10 +36,18 @@ app.use(flash());
 // seedDB(); seed the database
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-    secret: "Codecamp is a great project",
-    resave: false,
-    saveUninitialized: false
+// app.use(require("express-session")({
+//     secret: "Codecamp is a great project",
+//     resave: false,
+//     saveUninitialized: false
+// }));
+
+app.use(session({
+  secret: "Codecamp is a great project",
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: { maxAge: 180 * 60 * 1000 } // 180 minutes session expiration
 }));
 
 app.use(passport.initialize());
