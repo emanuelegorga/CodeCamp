@@ -36,6 +36,7 @@ app.use(flash());
 // seedDB(); seed the database
 
 // PASSPORT CONFIGURATION
+
 // app.use(require("express-session")({
 //     secret: "Codecamp is a great project",
 //     resave: false,
@@ -43,7 +44,7 @@ app.use(flash());
 // }));
 
 app.use(session({
-  secret: process.env.SESSIONSECRET,
+  secret: 'test secret session',
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
