@@ -43,11 +43,11 @@ app.use(flash());
 // }));
 
 app.use(session({
-  secret: "Codecamp is a great project",
+  secret: process.env.SESSIONSECRET,
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 180 * 60 * 1000 } // 180 minutes session expiration
+  cookie: { maxAge: 180 * 60 * 1000 }
 }));
 
 app.use(passport.initialize());
@@ -67,6 +67,6 @@ app.use(indexRoutes)
 app.use("/campgrounds", campgroundRoutes)
 app.use("/campgrounds/:id/comments", commentRoutes)
 
-app.listen(PORT, function() {
-  console.log("The CodeCamp Server Has Started!");
+app.listen(PORT, () => {
+  console.log(`The CodeCamp Server Has Started on port ${PORT}` );
 });
