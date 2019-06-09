@@ -36,6 +36,7 @@ app.use(flash());
 // seedDB(); seed the database
 
 // PASSPORT CONFIGURATION
+
 // app.use(require("express-session")({
 //     secret: "Codecamp is a great project",
 //     resave: false,
