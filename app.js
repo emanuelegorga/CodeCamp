@@ -10,6 +10,7 @@ const   express        = require("express"),
         Comment        = require("./models/comment"),
         User           = require("./models/user"),
         seedDB         = require("./seeds");
+        PORT           = process.env.PORT || 3000;
 
 //requiring routes
 const commentRoutes     = require("./routes/comments"),
@@ -48,6 +49,6 @@ app.use(indexRoutes)
 app.use("/campgrounds", campgroundRoutes)
 app.use("/campgrounds/:id/comments", commentRoutes)
 
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log("The CodeCamp Server Has Started!");
 });
