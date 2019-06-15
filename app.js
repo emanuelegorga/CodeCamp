@@ -19,8 +19,7 @@ const commentRoutes     = require("./routes/comments"),
       campgroundRoutes  = require("./routes/campgrounds"),
       indexRoutes       = require("./routes/index");
 
-// mongoose.connect("mongodb://localhost:27017/codecamp", { useNewUrlParser: true });
-mongoose.connect("mongodb+srv://gorgaemanuele:samplepassw@codecamp-xqmyl.mongodb.net/test?retryWrites=true&w=majority", { 
+mongoose.connect(process.env.DATABASEURL, { 
   useNewUrlParser: true,
   useCreateIndex: true
 }).then(() => {
@@ -28,6 +27,7 @@ mongoose.connect("mongodb+srv://gorgaemanuele:samplepassw@codecamp-xqmyl.mongodb
 }).catch(err => {
   console.log('Error: ', err.message)
 });
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -35,16 +35,15 @@ app.use(methodOverride("_method"));
 app.use(flash());
 // seedDB(); seed the database
 
-// PASSPORT CONFIGURATION
-
 // app.use(require("express-session")({
 //     secret: "Codecamp is a great project",
 //     resave: false,
 //     saveUninitialized: false
 // }));
 
+// PASSPORT CONFIGURATION
 app.use(session({
-  secret: 'test secret session',
+  secret: 'testing secret session',
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
