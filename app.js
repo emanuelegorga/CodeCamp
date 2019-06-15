@@ -11,6 +11,7 @@ const   express        = require("express"),
         User           = require("./models/user"),
         seedDB         = require("./seeds"),
         PORT           = process.env.PORT || 3000,
+        url            = process.env.DATABASEURL || "mongodb://localhost:27017/codecamp",
         session        = require("express-session"),
         MongoStore     = require("connect-mongo")(session);
 
@@ -19,7 +20,7 @@ const commentRoutes     = require("./routes/comments"),
       campgroundRoutes  = require("./routes/campgrounds"),
       indexRoutes       = require("./routes/index");
 
-mongoose.connect(process.env.DATABASEURL, { 
+mongoose.connect(url, { 
   useNewUrlParser: true,
   useCreateIndex: true
 }).then(() => {
